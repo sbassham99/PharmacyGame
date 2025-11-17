@@ -56,30 +56,35 @@ public class RotateBottle : MonoBehaviour
         // Spawn pills if the bottle is upside down and above tray
         if (currentRotation == maxRotation && dropPills)
         {
-            // if movement greater than 2, bottle was shaken
             float movement = Vector3.Distance(transform.position, currentPosition);
+            
+            // if movement greater than 2, bottle was shaken
             if (movement > 2.0f && pillsSpawned <= maxPills)
             {
+                int pillsToSpawn = Random.Range(3, 7);                
                 Debug.Log("Pill spawned");
 
                 // Get sprite bounds (world space)
                 SpriteRenderer trayRenderer = tray.GetComponent<SpriteRenderer>();
                 Bounds b = trayRenderer.bounds;
 
-                // Pick a random position inside the tray sprite area
-                float randomX = Random.Range(b.min.x, b.max.x);
-                float randomY = Random.Range(b.min.y, b.max.y);
+                for (int i = 0; i <= pillsToSpawn; i++)
+                {
+                    // Pick a random position inside the tray sprite area
+                    float randomX = Random.Range(b.min.x, b.max.x);
+                    float randomY = Random.Range(b.min.y, b.max.y);
 
-                // Keep Z consistent with tray (for top-down 2D)
-                Vector3 spawnPos = new Vector3(randomX, randomY, tray.transform.position.z);
+                    // Keep Z consistent with tray
+                    Vector3 spawnPos = new Vector3(randomX, randomY, tray.transform.position.z);
 
-                // Optional: add random rotation
-                Quaternion randomRot = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+                    // add random rotation
+                    Quaternion randomRot = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
-                // Spawn the pill
-                Instantiate(pill, spawnPos, randomRot, tray.transform);
+                    // Spawn the pill
+                    Instantiate(pill, spawnPos, randomRot, tray.transform);
 
-                pillsSpawned++;
+                    pillsSpawned++;
+                }
             }
             currentPosition = transform.position;
         }

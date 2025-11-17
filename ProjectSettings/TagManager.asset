@@ -10,6 +10,8 @@ TagManager:
   - pill
   - tiltbottle
   - tray
+  - client_spawner
+  - paper
   layers:
   - Default
   - TransparentFX
@@ -52,6 +54,9 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 2501146873
+    locked: 0
+  - name: traylid
+    uniqueID: 547058557
     locked: 0
   m_RenderingLayers:
   - Default
