@@ -9,12 +9,14 @@ public class Spatula : MonoBehaviour
     Rigidbody2D spatula;
     // This rotates the spatula when player picks it up
     Quaternion rotateSpat;
+    Vector3 originalSpot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rotateSpat = Quaternion.identity;
         spatula = GetComponent<Rigidbody2D>();
+        originalSpot = transform.position;
     }
 
     void OnMouseDown()
@@ -33,8 +35,7 @@ public class Spatula : MonoBehaviour
         transform.rotation = rotateSpat;
 
         // Return spatula to original position on table
-        // TODO: Don't mkae this hardcoded, seems bad long
-        transform.position = new Vector3(-8, 9, 0);
+        transform.position = originalSpot;
         isDragging = false;
     }
     // Update is called once per frame

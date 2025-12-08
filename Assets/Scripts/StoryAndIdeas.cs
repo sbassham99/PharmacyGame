@@ -28,4 +28,12 @@ the player can spend their money to upgrade different things in the pharmacy. If
 being a story, the story can progress during this night cycle.
 
 
+TODO: Make a structure for the prescriptions that will have a public int for qty and public sprite 
+for the script image itself.
+Make a public dictionary structure where hopefully I can create new key/value pairs from the inspector
+the value for each key will be a new struct. 
+
+
+
+
 */

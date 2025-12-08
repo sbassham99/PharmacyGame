@@ -5,12 +5,16 @@ public class Stamp : MonoBehaviour
 {
     public Camera DropOffCamera;
     public bool isDragging = false;
-    Vector3 offset;
-    Vector3 startPosition;
+    Vector3 offset; // for mouse dragging
+    Vector3 startPosition; // return stamp to original spot
     bool withinStampRange = false;
     Rigidbody2D stamp;
     public Sprite dropShadow, addShadow;
     SpriteRenderer sr;
+    GameObject prescription; // will become the parent object of the stamp
+
+    // Will instantiate Approved or Rejected on prescription paper
+    public GameObject prefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,12 +63,23 @@ public class Stamp : MonoBehaviour
             stamp.MovePosition(targetPos);       
         }
 
-        // // Stamper mechanics
+        // Stamper mechanics
         if (Input.GetKeyDown(KeyCode.Space) && withinStampRange)
         {
-            transform.localScale = new Vector3(0.3f, 0.3f, 1f);
-            Debug.Log("Stamp");
+            // find the prescription object
+            prescription = GameObject.FindWithTag("paper");
 
+            // reduce size of stamp to simulate it being pressed downwards onto the paper
+            transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+
+            // Create stamp on paper
+            GameObject stamped = Instantiate(prefab, transform.position, transform.rotation);
+            stamped.transform.SetParent(prescription.transform);
+
+            //TODO add stamp sound
+
+            // add a delay so the stamp stays at a smaller scale for half a second
+            // adding realism to stamp mechanic
             StartCoroutine(StampDelay());
         }
     }
@@ -73,6 +88,5 @@ public class Stamp : MonoBehaviour
         // Wait for 1/2 second
         yield return new WaitForSeconds(0.5f);
         transform.localScale = new Vector3(0.6f, 0.6f, 1f);
-        Debug.Log("Depress Stamp");
     }
 }

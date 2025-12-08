@@ -9,17 +9,19 @@ public class RotateBottle : MonoBehaviour
     float currentRotation = 0f;
 
     // Stuff to spawn pills from bottle
-    public int maxPills = 100;
+    //public int maxPills = 50; ending up taking this mechanic out
     int pillsSpawned = 0;
     public GameObject tray;
     public GameObject pill;
     Vector3 currentPosition;
+    public AudioSource a;
 
     void Start()
     {
         // Find tray and get bottles rigidbody component
         tray = GameObject.FindWithTag("tray");
         currentPosition = transform.position;
+
 
     }
     void OnTriggerEnter2D(Collider2D tilter)
@@ -59,11 +61,11 @@ public class RotateBottle : MonoBehaviour
             float movement = Vector3.Distance(transform.position, currentPosition);
             
             // if movement greater than 2, bottle was shaken
-            if (movement > 2.0f && pillsSpawned <= maxPills)
+            if (movement > 2.0f)  // took out && pillsSpawned <= maxPills to add no limit to amount spawned
             {
-                int pillsToSpawn = Random.Range(3, 7);                
-                Debug.Log("Pill spawned");
+                int pillsToSpawn = Random.Range(3, 7);              
 
+                PlayAudio();
                 // Get sprite bounds (world space)
                 SpriteRenderer trayRenderer = tray.GetComponent<SpriteRenderer>();
                 Bounds b = trayRenderer.bounds;
@@ -77,7 +79,7 @@ public class RotateBottle : MonoBehaviour
                     // Keep Z consistent with tray
                     Vector3 spawnPos = new Vector3(randomX, randomY, tray.transform.position.z);
 
-                    // add random rotation
+                    // add random rotation (this ended up not mattering)
                     Quaternion randomRot = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
 
                     // Spawn the pill
@@ -87,6 +89,16 @@ public class RotateBottle : MonoBehaviour
                 }
             }
             currentPosition = transform.position;
+        }
+    }
+
+    void PlayAudio()
+    {
+        if(a.isPlaying == false)
+        {
+            // audio clip has white noise at the start, skip past it
+            a.time = 0.9f;
+            a.Play();
         }
     }
 }

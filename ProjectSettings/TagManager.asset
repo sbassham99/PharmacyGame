@@ -12,6 +12,16 @@ TagManager:
   - tray
   - client_spawner
   - paper
+  - dropoffcamera
+  - scriptwaypoint
+  - prescriptionspawner
+  - finger
+  - approve_stamped
+  - rejected_stamped
+  - Prescription
+  - movescripttofill
+  - AtDropOff
+  - patient
   layers:
   - Default
   - TransparentFX
@@ -49,13 +59,16 @@ TagManager:
   - name: Background
     uniqueID: 2502041895
     locked: 0
+  - name: Prescription Paper
+    uniqueID: 3444993757
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Character
     uniqueID: 2501146873
     locked: 0
-  - name: traylid
+  - name: AboveCharacter
     uniqueID: 547058557
     locked: 0
   m_RenderingLayers:

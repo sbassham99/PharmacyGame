@@ -4,8 +4,6 @@ public class PillBottle : MonoBehaviour
 {
     public Sprite dropShadow, addShadow;
     SpriteRenderer sr;
-    // Current bottle position in world
-    //public float bx = 6, by = 14, bz = 0;
     Vector3 startPosition;
     public Camera PillCamera;
     bool isDragging = false;
@@ -26,7 +24,6 @@ public class PillBottle : MonoBehaviour
     {
         // Return bottle to original position on table
         transform.position = startPosition;
-        //transform.position = new Vector3(bx, by, bz);
         sr.sprite = addShadow;
         isDragging = false;
     }
